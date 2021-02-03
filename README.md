@@ -25,6 +25,7 @@ find /var/www -type f -exec sudo chmod 0664 {} \;
 Login to the EC2 instances and make the following changes to /etc/httpd/conf.d/php.conf:
 
 Change php_value session.save_handler from "files" to "memcache"
+
 Change php_value session.save_path from "local" to "tcp://<FQDN of DNS Configuration Endpoint for your ElastiCache for Memcached cluster. Ex. "tcp://mymemcachedcluster.insflx.use2.cache.amazonaws.com:11211"
 
 **Step 3**
