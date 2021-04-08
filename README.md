@@ -23,30 +23,24 @@ systemctl start httpd
 
 **Step 2**
 Login to the EC2 instances and install the ElastiCache auto-discovery PHP client (7.3):
+
 ```
 wget https://elasticache-downloads.s3.amazonaws.com/ClusterClient/PHP-7.3/latest-64bit
 tar xvf latest-64bit
 sudo mv amazon-elasticache-cluster-client.so /usr/lib64/php/modules/
-echo "extension=amazon-elasticache-cluster-client.so" | sudo tee --append /etc/php.d/50-memcached.ini
 ```
 
-Edit the /etc/php.ini file:
-```
-Change session.save_handler from "files" to "memcached"
+Create the file "/etc/php.d/50-memcached.ini" with the following:
 
-Change session.save_path from "local" to "tcp://<FQDN of DNS Configuration Endpoint for your ElastiCache for Memcached cluster>". Ex. "tcp://mymemcachedcluster.insflx.use2.cache.amazonaws.com:11211"
-```
-
-**Step 3**
-While still logged into the EC2 instances, use the following configuration data for /etc/php.d/50-memcache.ini (replace configuration endpoint with your own):
 ```
     ;  Use memcache as a session handler
     session.save_handler=memcached
     ;  Defines a comma separated of server urls to use for session storage
     session.save_path="tcp://<yourclusterendpointFQDN>:11211persistent=1&weight=1&timeout=1&retry_interval=15"
 ```
-**Step 4**
-Upload php_files.tar to your EC2 instances. Login to each instance, untar and move all *.php files into your HTML directory:
+
+**Step 3**
+Upload php_files.tar to your EC2 instances. Login to each instance, untar and move all php files into your HTML directory:
 
     ```
     ---From your local machine, upload php_files.tar to each instance---
@@ -57,11 +51,13 @@ Upload php_files.tar to your EC2 instances. Login to each instance, untar and mo
     mv *.php /var/www/html
     ```
     
-**Step 5**
+**Step 4**
 Restart Apache:
+
 ```
     sudo systemctl restart httpd
 ```
+
 **Test the Web Server by visiting the public IP address (in your browser) associated with the instance**
 
 Install telnet and verify connectivity from EC2 instance(s) to the Memcached cluster using the following command:
@@ -71,4 +67,4 @@ Install telnet and verify connectivity from EC2 instance(s) to the Memcached clu
     telnet <FQDN of Memcached Endpoint> 11211
 ```
 
-If successful, you're finished. If not, please submit an Issue.
+If successful, you're finished! If not, please submit an Issue.
