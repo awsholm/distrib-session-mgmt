@@ -72,4 +72,4 @@ telnet <FQDN of Memcached Endpoint> 11211
 Test the Web Server by visiting the public IP address (in your browser) associated with the instance**
 
 
-If successful, you're finished! If not, please submit an Issue.
+If successful, you're finished! If not, please submit an [Issue](https://github.com/awsholm/distrib-session-mgmt/issues).
