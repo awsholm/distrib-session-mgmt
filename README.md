@@ -30,7 +30,7 @@ tar xvf latest-64bit
 sudo mv amazon-elasticache-cluster-client.so /usr/lib64/php/modules/
 ```
 
-Create the file "/etc/php.d/50-memcached.ini" with the following:
+Create the file /etc/php.d/50-memcached.ini with the following:
 
 ```
     ;  Use memcache as a session handler
