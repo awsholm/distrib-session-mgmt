@@ -23,6 +23,10 @@ systemctl start httpd
 ```
 
 **Step 2**
+Configure EC2 instances with proper security groups to permit communication with ElastiCache Memcached
+Use [this link](https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/accessing-elasticache.html) as a reference.
+
+**Step 3**
 Login to the EC2 instances & install the ElastiCache auto-discovery PHP client (7.4):
 
 ```
@@ -31,7 +35,7 @@ tar xvf latest-64bit
 sudo mv amazon-elasticache-cluster-client.so /usr/lib64/php/modules/
 ```
 
-**Step 3**
+**Step 4**
 Create the file /etc/php.d/50-memcached.ini with the following:
 
 ```
@@ -39,14 +43,14 @@ session.save_handler=memcached
 session.save_path="tcp://<yourclusterendpointFQDN>:11211persistent=1&weight=1&timeout=1&retry_interval=15"
 ```
 
-**Step 4**
+**Step 5**
 Upload php_files.tar to your EC2 instances. :
 
 ```
 Ex. scp -i /path/to/key.pem php_files.tar ec2-user@<IP of instance>:
 ```
 
-**Step 5**
+**Step 6**
 Login to each instance, untar and move all php files into your HTML directory:
 
 ```
@@ -54,14 +58,14 @@ tar xvf php_files.tar && cd php_files
 mv *.php /var/www/html
 ```
     
-**Step 6**
+**Step 7**
 Restart Apache:
 
 ```
 sudo systemctl restart httpd
 ```
 
-**Step 7**
+**Step 8**
 Install telnet and verify connectivity from EC2 instance(s) to the Memcached cluster using the following command:
 
 ```
@@ -69,7 +73,7 @@ sudo yum -y install telnet
 telnet <FQDN of Memcached Endpoint> 11211
 ```
 
-**Step 8**
+**Step 9**
 Test the Web Server by visiting the public IP address (in your browser) associated with the instance
 
 
