@@ -23,7 +23,8 @@ systemctl start httpd
 ```
 
 **Step 2**
-Configure EC2 instances with proper security groups to permit communication with ElastiCache Memcached
+Configure EC2 instances with proper security groups to permit communication with ElastiCache Memcached.  
+
 Use [this link](https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/accessing-elasticache.html) as a reference.
 
 **Step 3**
