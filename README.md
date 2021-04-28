@@ -9,7 +9,8 @@ Create Amazon Linux x86 EC2 instances and use the following User Data (Instance 
 ```
 #!/bin/bash
 yum update -y
-amazon-linux-extras enable php7.3
+yum install -y gcc-c++ zlib-devel
+amazon-linux-extras enable php7.4
 yum clean metadata
 yum -y install php
 usermod -a -G apache ec2-user
@@ -22,10 +23,10 @@ systemctl start httpd
 ```
 
 **Step 2**
-Login to the EC2 instances & install the ElastiCache auto-discovery PHP client (7.3):
+Login to the EC2 instances & install the ElastiCache auto-discovery PHP client (7.4):
 
 ```
-wget https://elasticache-downloads.s3.amazonaws.com/ClusterClient/PHP-7.3/latest-64bit
+wget https://elasticache-downloads.s3.amazonaws.com/ClusterClient/PHP-7.4/latest-64bit-X86
 tar xvf latest-64bit
 sudo mv amazon-elasticache-cluster-client.so /usr/lib64/php/modules/
 ```
